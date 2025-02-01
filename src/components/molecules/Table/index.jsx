@@ -6,7 +6,7 @@ export default function Table({headers, data}){
   return(
     <TableWrapper>
       <thead>
-        <TableRow dataRow={headers} isHeader={true}/>
+        <TableRow dataRow={ headers} isHeader={true}/>
       </thead>
       <tbody>
         {

@@ -5,16 +5,15 @@ import { Wrapper } from "./styles";
 import { useEffect } from "react";
 import { socketOff, socketOn } from "../../sockets/sockets";
 import { useCallback } from "react";
+import { getProducts } from "../../services/getProducts.service";
+import Pagination from "../../components/molecules/Pagination";
 
-const fakeData = [
-  ["123", "lapiz", 10, "UMB"],
-  ["456", "lapicero", 8, "UMB"],
-  ["789", "borrador", 23, "UMB"],
-]
-const headers = [ "SKU", "Descripción", "Stock", "UMB"]
+const headers = [ "SKU", "Descripción", "Stock", "Fecha actualización"]
 export default function SearchPage() {
   const [search, setSearch] = useState("")
   const [data, setData] = useState([])
+  const [pages, setPages] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const updateStock = useCallback((payload) => {
     setData(prev =>{
@@ -35,15 +34,32 @@ export default function SearchPage() {
   },[socketOn, updateStock])
 
   useEffect(() => {
-    setTimeout(() => {
-      setData(fakeData.filter(item => item[0].includes(search) || item[1].includes(search)
-      ))
+    const handlerSearch = setTimeout(() => {
+      getProducts({page: currentPage, search}).then(res => {
+        setData(res.data)
+        setPages(res.pages)
+      })
+      setCurrentPage(1)
+
     }, 2000)
+
+    return () => {
+      clearTimeout(handlerSearch)
+    }
   }, [search])
+
+  useEffect(() => {
+    getProducts({page: currentPage, search}).then(res => {
+      setData(res.data)
+      setPages(res.pages)
+    })
+
+  }, [currentPage])
   
   return (
     <Wrapper>
       <SearchInput value={search} onChange={(e) => setSearch(e.target.value)}/>
+      <Pagination totalPages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       <Table headers={headers} data={data}/>
     </Wrapper>
   )

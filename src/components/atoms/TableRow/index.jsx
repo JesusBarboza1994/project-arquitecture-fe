@@ -1,7 +1,7 @@
 import { TableRowWrapper } from "./styles";
 
 export default function TableRow({dataRow, isHeader = false }) {
-  
+
   return (
     <>
       {
@@ -13,9 +13,16 @@ export default function TableRow({dataRow, isHeader = false }) {
         </TableRowWrapper>
         :  
         <TableRowWrapper>
-          {dataRow.map((item, index) => (
+          {
+          dataRow.length === undefined ?
+          Object.values(dataRow).map((item, index) => (
             <td key={index}>{item}</td>
-          ))}
+          ))
+          :
+          dataRow.map((item, index) => (
+            <td key={index}>{item}</td>
+          ))
+          }
         </TableRowWrapper>
       }
     </>
