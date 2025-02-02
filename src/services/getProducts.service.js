@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export async function getProducts({page, limit=50, search}) {
+export async function getProducts({page, limit=40, search}) {
   let url = import.meta.env.VITE_SOCKET_SERVER_API_URL + "/connection";
 
   const params = [];

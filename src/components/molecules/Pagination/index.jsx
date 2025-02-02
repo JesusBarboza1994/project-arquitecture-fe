@@ -36,7 +36,6 @@ export default function Pagination({totalPages, currentPage, setCurrentPage}) {
   };
 
   const pages = getVisiblePages(totalPages, currentPage);
-  console.log(pages)
   return (
     <Wrapper>
       {

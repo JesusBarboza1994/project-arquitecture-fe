@@ -10,7 +10,7 @@ const Wrapper = newStyled('div')`
   width: 100%;
   align-items: center;
   height: 100vh;
-  padding-top: 4rem;
+  padding: 4rem;
 `
 function App() {
   useEffect(() => {

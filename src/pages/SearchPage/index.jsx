@@ -16,10 +16,15 @@ export default function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const updateStock = useCallback((payload) => {
+    console.log(payload)
+    console.log(data)
     setData(prev =>{
       return prev.map(item => {
-        if(item[0] === payload.id){
-          return [item[0], item[1], payload.stock, item[3]]
+        if(item.id_producto == payload.id){
+          return {
+            ...item,
+            stock_actual: payload.stock
+          }
         }
         return item
       })
@@ -59,8 +64,8 @@ export default function SearchPage() {
   return (
     <Wrapper>
       <SearchInput value={search} onChange={(e) => setSearch(e.target.value)}/>
-      <Pagination totalPages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       <Table headers={headers} data={data}/>
+      <Pagination totalPages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
     </Wrapper>
   )
 }
