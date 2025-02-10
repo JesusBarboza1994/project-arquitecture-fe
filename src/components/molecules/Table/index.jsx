@@ -1,7 +1,7 @@
 import TableRow from "../../atoms/TableRow";
 import { TableWrapper } from "./styles";
 
-export default function Table({headers, data}){
+export default function Table({headers, data, selectedItems, onSelectItem, onQuantityChange}){
   if(headers.length === 0) return <p>No hay datos</p>
   return(
     <TableWrapper>
@@ -24,8 +24,15 @@ export default function Table({headers, data}){
           </tr> 
           :
           data.map((item, index) => (
-          <TableRow key={index} dataRow={item}/>
-        ))}
+            <TableRow 
+              key={index} 
+              dataRow={item}
+              selected={selectedItems.has(item.id_producto)}
+              onSelect={onSelectItem}
+              onQuantityChange={onQuantityChange}
+            />
+          ))
+        }
       </tbody>
     </TableWrapper>
   )
