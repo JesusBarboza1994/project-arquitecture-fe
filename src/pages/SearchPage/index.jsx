@@ -119,12 +119,13 @@ export default function SearchPage() {
         const ids = response.map((item) => item.id_producto);
         return prev.map((item) => {
           if (ids.includes(item.id_producto)) {
+            const modifyValue = response.find(
+              (r) => r.id_producto === item.id_producto
+            );
             return {
               ...item,
-              stock_actual: response.find(
-                (r) => r.id_producto === item.id_producto
-              ).stock_actual,
-              fecha_actualizacion: item.fecha_actualizacion,
+              stock_actual: modifyValue.stock_actual,
+              fecha_actualizacion: modifyValue.fecha_actualizacion,
             };
           }
           return item;
