@@ -66,6 +66,7 @@ export default function SearchPage() {
   }, []);
 
   const updateStock = useCallback((payload) => {
+    console.log("payload", payload);
     setData((prev) => {
       return prev.map((item) => {
         if (item.id_producto === payload.id) {
