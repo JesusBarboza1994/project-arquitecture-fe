@@ -69,10 +69,11 @@ export default function SearchPage() {
     console.log("payload", payload);
     setData((prev) => {
       return prev.map((item) => {
-        if (item.id_producto === payload.id) {
+        if (item.id_producto === Number(payload.id)) {
           return {
             ...item,
             stock_actual: payload.stock,
+            fecha_actualizacion: payload.fecha_actualizacion,
           };
         }
         return item;
@@ -81,10 +82,11 @@ export default function SearchPage() {
 
     setAllProducts((prev) => {
       return prev.map((item) => {
-        if (item.id_producto === payload.id) {
+        if (item.id_producto === Number(payload.id)) {
           return {
             ...item,
             stock_actual: payload.stock,
+            fecha_actualizacion: payload.fecha_actualizacion,
           };
         }
         return item;
