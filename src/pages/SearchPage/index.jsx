@@ -124,6 +124,7 @@ export default function SearchPage() {
               stock_actual: response.find(
                 (r) => r.id_producto === item.id_producto
               ).stock_actual,
+              fecha_actualizacion: item.fecha_actualizacion,
             };
           }
           return item;
